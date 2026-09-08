@@ -1,19 +1,27 @@
-import { createClient } from '@/lib/supabase/server'
+import Link from 'next/link'
 
-export default async function Home() {
-  const supabase = await createClient()
-  const { data, error } = await supabase.from('businesses').select('*')
-
+export default function Home() {
   return (
-    <main style={{ padding: '2rem', fontFamily: 'monospace' }}>
-      <h1>DokoBook — Supabase Connection Test</h1>
-      {error ? (
-        <p style={{ color: 'red' }}>Error: {error.message}</p>
-      ) : (
-        <p style={{ color: 'green' }}>
-          ✅ Connected successfully. Found {data?.length ?? 0} businesses (expected: 0, since no one has signed up yet).
-        </p>
-      )}
+    <main className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center px-4 text-center">
+      <h1 className="text-3xl font-bold text-[#B08D57]">DokoBook</h1>
+      <p className="text-gray-500 mt-2 max-w-md">
+        Booking, invoicing, and automatic reminders — built for local
+        service businesses in Nepal.
+      </p>
+      <div className="mt-6 flex gap-3">
+        <Link
+          href="/signup"
+          className="bg-[#B08D57] text-white px-5 py-2 rounded-lg font-medium hover:opacity-90 transition"
+        >
+          Get started
+        </Link>
+        <Link
+          href="/login"
+          className="border border-gray-300 text-gray-700 px-5 py-2 rounded-lg font-medium hover:bg-gray-50 transition"
+        >
+          Log in
+        </Link>
+      </div>
     </main>
   )
 }
